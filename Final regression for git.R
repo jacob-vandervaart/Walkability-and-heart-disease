@@ -34,21 +34,21 @@ for (var in colnames(sdoh_df[-c(1:5)])) {
 # communting variables and other appear to be no normal and would potentially benefit from log transformations
 # CLT should make non normal data less of an issue.
 
-# # basic plots of main variable of interest
-# sdoh_df |> ggplot(aes(ACS_PCT_WALK_2WORK))+
-#   geom_density()
-# sdoh_df |> ggplot(aes(ACS_PCT_WALK_2WORK))+
-#   geom_boxplot()
-# sdoh_df |> ggplot(aes(log(ACS_PCT_WALK_2WORK)))+
-#   geom_density()
+ # basic plots of main variable of interest
+sdoh_df |> ggplot(aes(ACS_PCT_WALK_2WORK))+
+   geom_density()
+ sdoh_df |> ggplot(aes(ACS_PCT_WALK_2WORK))+
+   geom_boxplot()
+ sdoh_df |> ggplot(aes(log(ACS_PCT_WALK_2WORK)))+
+   geom_density()
 
 
-# sdoh_df |> ggplot(aes(ACS_PCT_HU_NO_VEH))+
-#   geom_density()
-# sdoh_df |> ggplot(aes(ACS_PCT_HU_NO_VEH))+
-#   geom_boxplot()
-# sdoh_df |> ggplot(aes(log(ACS_PCT_HU_NO_VEH)))+
-#   geom_density()
+ sdoh_df |> ggplot(aes(ACS_PCT_HU_NO_VEH))+
+   geom_density()
+ sdoh_df |> ggplot(aes(ACS_PCT_HU_NO_VEH))+
+   geom_boxplot()
+ sdoh_df |> ggplot(aes(log(ACS_PCT_HU_NO_VEH)))+
+   geom_density()
 
 # data is very non normal, log transformed data visual appears to be normal
 
@@ -138,27 +138,6 @@ variable_names2 <- sdoh_df |>
 # a 5% point increase in the population walking to work is correlated with a 0.16 point reduction in the percentage of the population with CHD
 # HU no vehicles is significant but the magnitude is low 0.01 point increase in CHD for every 5% increase
 
-# not doing this anymore keeping all co linear variables that are no related to commuting
-# # no longer see high correlations in our main predictor walk_2work 
-# # black and white seem to be correlated
-# 
-# # repeat but remove ACS_PCT_WHITE
-# variable_names2 <- sdoh_df |> 
-#   select(ACS_AVG_HH_SIZE:ACS_PCT_FOREIGN_BORN, ACS_PCT_AGE_50_64, ACS_PCT_AIAN:ACS_PCT_BLACK,
-#          ACS_PCT_HISPANIC:ACS_GINI_INDEX, ACS_PER_CAPITA_INC:ACS_MEDIAN_RENT,
-#          ACS_PCT_HU_NO_VEH5,ACS_PCT_WALK_2WORK5, -ACS_PCT_WHITE) |> 
-#   colnames()
-# formula_chd2 <- as.formula(paste("CHD ~ ", paste(variable_names2, collapse= "+")))
-# formula_chd2
-# 
-# 
-# chd_model2 <- lm(formula_chd2, data = sdoh_df)
-# 
-# vif_values2 <- vif(chd_model2)
-# vif_values2
-# plot(vif_values2)
-
-
 
 formula_chd2 <- as.formula(paste("CHD ~ ", paste(variable_names2, collapse= "+")))
 formula_chd2
@@ -204,7 +183,7 @@ high_influence <- which(influence(chd_model2)$hat > 0.03)
 # 0.03 determined visually from plot
 
 sdoh_drop_na[outliers,]
-# 30169 has a large per-capita income of 485,000. likely data entry error and should be 48,000
+# 30169 has a large per-capita income of 485,000. likely data entry error and should be 48,500
 sdoh_drop_na[high_influence,]
 # high influence points all have very large pacific islander populations
 
